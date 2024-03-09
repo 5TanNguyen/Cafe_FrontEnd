@@ -4,7 +4,7 @@ import {useState, useEffect} from 'react';
 import Order from './Order';
 import { useNavigate } from 'react-router-dom';
 
-const socket = io.connect("http://localhost:5005");
+const socket = io.connect("http://localhost:5555");
 
 function ConnectRoom() {
   const navigate = useNavigate();
@@ -19,14 +19,14 @@ function ConnectRoom() {
     }
   };  
 
-  useEffect(()=>{
-    setUsername(localStorage.getItem('userName'));
-    setRoom(localStorage.getItem('role'));
+  // useEffect(()=>{
+  //   setUsername(localStorage.getItem('userName'));
+  //   setRoom(localStorage.getItem('role'));
 
-    if(!localStorage.getItem('userToken')){
-      navigate('/');
-    }
-  }, []);
+  //   if(!localStorage.getItem('userToken')){
+  //     navigate('/');
+  //   }
+  // }, []);
 
   return (
     <div className="App">
@@ -34,7 +34,7 @@ function ConnectRoom() {
         <div className="joinChatContainer">
           <h3>VÀO TRANG ĐƠN HÀNG</h3>
           <input
-            hidden={true}
+            // hidden={true}
             value={username}
             type="text"
             placeholder="John..."
@@ -43,7 +43,7 @@ function ConnectRoom() {
             }}
           />
           <input
-            hidden={true}
+            // hidden={true}
             value={room}
             type="text"
             placeholder="Room ID..."

@@ -45,10 +45,10 @@ function Order({ socket, username, room }) {
       // console.log(order);
 
       axios({
-        url: "http://localhost:5005/order-add",
+        url: "http://localhost:5555/order-add",
         method: "POST",
         data: order,
-        headers: {token: `Bearer ${token}`} 
+        // headers: {token: `Bearer ${token}`} 
       }).then((res)=>{
           console.log('Gửi thành công!');
           console.log(res.data.id)
@@ -80,7 +80,7 @@ function Order({ socket, username, room }) {
       await socket.emit("send_order", order);
       // setOrderList((list) => [...list, order]);
       axios({
-        url: "http://localhost:5005/user/order-list",
+        url: "http://localhost:5555/order-list",
         method: "GET",
       }).then((res)=>{
           console.log('Lấy thành công sau khi send!');
@@ -108,7 +108,7 @@ function Order({ socket, username, room }) {
 
   const getOrders = () => {
     axios({
-      url: "http://localhost:5005/user/order-list",
+      url: "http://localhost:5555/order-list",
       method: "GET",
     }).then((res)=>{
         // console.log(res.data);

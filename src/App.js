@@ -7,6 +7,7 @@ import Footer from './Components/Public/Footer/Footer';
 
 import LoginSignup from './Components/Customer/Login/LoginSignup';
 import Products from './pages/Customer/Product/Products';
+import OrderPage from './pages/User/OrderPage/ConnectRoom';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Routes>
           <Route path="/login" element={<LoginSignup />} />
           <Route path="/products" element={<Products />} />
+          <Route path="/order" element={<OrderPage/>} />
         </Routes>
       </BrowserRouter>
       <Footer />
