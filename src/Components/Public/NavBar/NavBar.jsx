@@ -6,6 +6,9 @@ import Logout from "../Logout/Logout";
 import PopUp from '../PopUp/PopUp';
 import Cart from '../../Customer/Cart/Cart';
 
+import io from "socket.io-client";
+const socket = io.connect("http://localhost:5555");
+
 const NavBar = () => {
   // const user = useSelector((state)=> state.auth.logi);
   const [cToken, setCToken] = useState();
@@ -16,6 +19,8 @@ const NavBar = () => {
     setCToken(localStorage.getItem('customerToken'));
     setCName(localStorage.getItem('customerName'));
     setCId(localStorage.getItem('customerId'));
+
+    socket.emit("join_room", cId);
   }, [])
 
   return (
@@ -25,7 +30,7 @@ const NavBar = () => {
         <>
         <p className="navbar-user">Hi, <span> {cName}  </span> </p>
         <Link to="/products" className="navbar-login"> Products </Link>
-        <Cart/>
+        <Cart socket={socket} customername={cName} room={cId}/>
         <Logout />
         </>
       ) : (    
