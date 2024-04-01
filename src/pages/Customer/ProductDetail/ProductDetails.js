@@ -149,7 +149,7 @@ export default function ProductDetails() {
 
             <div className="box">
               <img className="box_img" src="https://www.ilovepets.com/wp-content/uploads/2019/11/corgi-6-1024x913.jpg" />
-              <h3>Cún</h3>
+              <h3>Cúnn</h3>
               <p>Sẽ tìm được việc trước 28/5</p>
               <a href="" className="btn">MUA</a>
             </div>
