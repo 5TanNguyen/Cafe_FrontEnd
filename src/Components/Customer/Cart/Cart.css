@@ -2,12 +2,26 @@ body.active-modal {
     overflow-y: hidden;
 }
 
-.btn-modal {
-    padding: 10px 20px;
+.btn-cart {
+    padding: 5px 15px;
     display: block;
     /* margin: 100px auto 0; */
     margin-left: 0px;
     font-size: 18px;
+    width: 150px;
+}
+
+.cart-count{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    top: 3px;
+    right: 190px;
+    background-color: rgb(255, 38, 0);
+    color: rgb(255, 255, 255);
+    border-radius: 100%;
+    padding: 2px; 
+    width: 20px;
 }
 
 .modal, .overlay {
@@ -24,19 +38,16 @@ body.active-modal {
 .overlay {
     background: rgba(49,49,49,0.8);
 }
-.modal-content {
+.card-content {
     position: absolute;
     top: 40%;
-    left: 80%;
+    right: 0;
     transform: translate(-50%, -50%);
     line-height: 1.4;
     background: #f1f1f1;
     padding: 14px 28px;
     border-radius: 3px;
-    max-width: 350px;
-    min-width: 300px;
-
-    
+    width: 370px;
 }
 
 .div-scroll{
@@ -45,16 +56,19 @@ body.active-modal {
     height: 400px;
 }
 
-.close-modal {
+.close-cart {
     position: absolute;
     top: 10px;
     right: 10px;
     padding: 5px 7px;
+    border-radius: 10px;
+    background-color: rgb(230, 81, 12);
 }
 
 .cart-ul{
     margin-top: 40px;
     width: 300px;
+    list-style-type: none;
 }
 
 .cart-ul li{
@@ -87,4 +101,10 @@ body.active-modal {
     border-radius: 20px;
     background-color: rgb(11, 134, 211);
     color: darkred;
+}
+
+.cart-address{
+    background-color: gainsboro;
+    width: 90%;
+    color: black;
 }

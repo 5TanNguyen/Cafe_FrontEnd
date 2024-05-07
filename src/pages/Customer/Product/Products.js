@@ -96,6 +96,9 @@ export default function Products() {
                 <p>{item.description}</p>
                 <p className="price">10.000<span>VNĐ</span></p>
                 {/* <div className="btn"> */}
+                <Link to={`/product-detail/${item.id}`}>
+                  <button className="btn-view">Xem</button>
+                </Link>
                   <button className="btn" onClick={() =>createCart(item.id)}>Add To Cart</button>
                 {/* </div> */}
               </div>

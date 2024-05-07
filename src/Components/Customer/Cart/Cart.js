@@ -2,7 +2,6 @@ import React, {useState, useEffect} from "react";
 import "./Cart.css";
 import axios from "axios";
 import { useNavigate} from 'react-router-dom';
-import Order from './Order';
 
 // export default function Modal({product, socket, username, room}){
 export default function Cart({socket, customername, room}){
@@ -21,27 +20,29 @@ export default function Cart({socket, customername, room}){
     const [username, setUsername] = useState("");
     const [showChat, setShowChat] = useState(false);
     const [proId, setProID] = useState("");
+    const [count, setCount] = useState("");
 
     const toggleModal = () =>{
         setModal(!modal);
     }
 
-    const handleSubmit = async (productn_id) => {
+    const handleSubmit = async (productn_id, cartId) => {
         if (cName !== "") {
           const order = {
+            cart_id: cartId,
             user_id: null,
-            customer_id : 1,
+            customer_id : cId,
             customer: {
-              firstName: 'hhaha'
+              firstName: cName
             },
             quantity: 1,
             price: 22,
+            totalPrice: 22,
             productn_id : productn_id,
             address: 'Cần Thơ',
             state: false,
             author: customername,
             room: room,
-            totalPrice: 22,
             createdAt: new Date(Date.now())
             // time:
             //   new Date(Date.now()).getDate() +
@@ -101,8 +102,9 @@ export default function Cart({socket, customername, room}){
             method: "GET",
             headers: {token: `Bearer ${cToken}`} 
         }).then((res)=>{
-            // console.log(res.data)
+            // console.log(res.data) 
             setCartList(res.data);
+            setCount(res.data.count);
         }).catch(err => console.log(err));
     }
 
@@ -110,24 +112,22 @@ export default function Cart({socket, customername, room}){
         <>
         <button
             onClick={toggleModal}
-            className="btn-modal"
-        >Giỏ hàng</button>
+            className="btn-cart"
+        >Giỏ hàng <p className="cart-count">
+            <b>{count}</b>
+                    </p>
+        </button>
         
         {modal && (<div className="modal">
-            <div className="overplay"></div>
-            <div className="modal-content">
+            <div className="card-content">
+                <div className="cart-address">Địa chỉ: {cartList.customer.address}</div>
                 <div className="div-scroll">
                     <ul className="cart-ul">
                     { cartList.cart?.map((item, index)=>{
                         return(
                             <li key={index}>  
                                 <div className="div-li">
-                                    <form onSubmit={()=>handleSubmit(item.productn.id)}>
-                                        <input
-                                            value={proId}
-                                            type="text" placeholder='Password' name="" id=""
-                                            onChange={e => setProID(item.productn.id)}/>
-
+                                    <form onSubmit={()=>handleSubmit(item.productn.id, item.id)}>
                                         <img className="cart-img" src="https://www.ilovepets.com/wp-content/uploads/2019/11/corgi-6-1024x913.jpg" />
                                         <div className="info">
                                             {item.productn.name}
@@ -143,7 +143,7 @@ export default function Cart({socket, customername, room}){
                     })}  
                     </ul>
                 </div>
-                <button className="close-modal"
+                <button className="close-cart"
                 onClick={toggleModal}>Đóng
                 </button>
             </div>

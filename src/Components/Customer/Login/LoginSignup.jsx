@@ -16,6 +16,7 @@ const LoginSignup = () =>{
     const [password, setPassword] = useState();
     const [phone, setPhone] = useState();
     const [token, setToken] = useState();
+    const [address, setAddress] = useState();
 
     useEffect(()=>{
         setToken(localStorage.getItem('token'));
@@ -44,6 +45,7 @@ const LoginSignup = () =>{
             {
                 firstName,
                 lastName,
+                address,
                 email, 
                 password,
                 phone
@@ -72,13 +74,13 @@ const LoginSignup = () =>{
                     </div>
                     <div className="inputs"> 
                         {action==="Login"?<div></div>:
-                            <div className='info'>
+                            <div className=''>
                                 <div className="input">
                                     <img src={user_icon} alt="" />
                                     <input type="text" placeholder='Name' name="" id="" 
                                     onChange={e => setFirstName(e.target.value)} />
                                 </div>
-                                
+                                <br />
                                 <div className="input">
                                     <img src={user_icon} alt="" />
                                     <input type="text" placeholder='Last Name' name="" id="" 
@@ -86,9 +88,6 @@ const LoginSignup = () =>{
                                 </div>
                             </div>
                         }
-                        
-                        <br />
-                        <br/>
                         <div className="input">
                             <input type="text" placeholder='               Phone' name="" id=""
                             onChange={e => setPhone(e.target.value)}/>
@@ -109,6 +108,13 @@ const LoginSignup = () =>{
                                 onChange={e => setEmail(e.target.value)}/>
                                     {/* <img src={password_icon} alt="" /> */}
                                     
+                                </div>  
+
+                                <br/>
+                                <div className="input">
+                                <img src={email_icon} alt="" />
+                                <input type="text" placeholder='Address' name="" id="" 
+                                onChange={e => setAddress(e.target.value)}/>
                                 </div>  
                             </div>
                             :

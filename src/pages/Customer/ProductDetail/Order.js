@@ -20,7 +20,7 @@ function Order({ socket, username, room, product , currentprice}) {
   const createOrder = async () => {
     if (currentCustomerId !== "") {
       const order = {
-        id: orderLastId,
+        id: null,
         user_id: null,
         customer_id : currentCustomerId,
         customer: {
@@ -43,21 +43,23 @@ function Order({ socket, username, room, product , currentprice}) {
         //   new Date(Date.now()).getMinutes(),
       };
 
+      console.log(order);
+
       axios({
-        url: "http://localhost:5005/order-add",
+        url: "http://localhost:5555/order-add",
         method: "POST",
         data: order,
         headers: {token: `Bearer ${token}`} 
       }).then((res)=>{
-          setOrderId(res.data.order.id);
+          console.log(`FrontEnd: Thêm đơn thành công!`);
       }).catch(function(err)
       {
-        console.log(err + ' Lỗi gửi đơn');
+        console.log(err + ' Lỗi thêm đơn');
       })
 
       await socket.emit("send_order", order);
       axios({
-        url: "http://localhost:5005/user/order-list",
+        url: "http://localhost:5555/user/order-list",
         method: "GET",
       }).then((res)=>{
           console.log('Lấy thành công sau khi send!');
@@ -74,11 +76,11 @@ function Order({ socket, username, room, product , currentprice}) {
 
   useEffect(() => {
     getOrders();
-    getOrderLastID();
+    // getOrderLastID();
 
     setToken(localStorage.getItem('token'));
     setCurrentCustomerId(localStorage.getItem('customerId'));
-    setFirstName(localStorage.getItem('name'));
+    setFirstName(localStorage.getItem('customerName'));
     
     socket.on("receive_order", (data) => {
       setOrderList((list) => [...list, data]);
@@ -88,7 +90,7 @@ function Order({ socket, username, room, product , currentprice}) {
 
   const getOrders = () => {
     axios({
-      url: "http://localhost:5005/user/order-list",
+      url: "http://localhost:5555/user/order-list",
       method: "GET",
     }).then((res)=>{
         // console.log(res.data);
@@ -99,19 +101,19 @@ function Order({ socket, username, room, product , currentprice}) {
     })
   }
 
-  const getOrderLastID = () => {
-    axios({
-      url: "http://localhost:5005/user/order-lastId",
-      method: "GET",
-    }).then((res)=>{
-        setOrderLastId(res.data.lastId + 1);
-        console.log("Last ID: ")
-        console.log(res.data.lastId + 1);
-    }).catch(function(err)
-    {
-      console.log(err + ' Lỗi lấy tin nhắn');
-    })
-  }
+  // const getOrderLastID = () => {
+  //   axios({
+  //     url: "http://localhost:5005/user/order-lastId",
+  //     method: "GET",
+  //   }).then((res)=>{
+  //       setOrderLastId(res.data.lastId + 1);
+  //       console.log("Last ID: ")
+  //       console.log(res.data.lastId + 1);
+  //   }).catch(function(err)
+  //   {
+  //     console.log(err + ' Lỗi lấy tin nhắn');
+  //   })
+  // }
 
   return (
     <div className="chat-window">
