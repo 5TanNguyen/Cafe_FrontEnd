@@ -30,9 +30,9 @@ export default function Cart({socket, customername, room}){
         if (cName !== "") {
           const order = {
             user_id: null,
-            customer_id : 1,
+            customer_id : cId,
             customer: {
-              firstName: 'hhaha'
+              firstName: cName
             },
             quantity: 1,
             price: 22,
@@ -108,42 +108,46 @@ export default function Cart({socket, customername, room}){
 
     return(
         <>
-        <button
-            onClick={toggleModal}
-            className="btn-modal"
-        >Giỏ hàng</button>
+        <a onClick={toggleModal}>Giỏ hàng</a>
         
-        {modal && (<div className="modal">
+        {modal && (<div className="cart">
             <div className="overplay"></div>
-            <div className="modal-content">
-                <div className="div-scroll">
-                    <ul className="cart-ul">
+            <div className="cart-content">
+                <div className="cart-div-scroll">
+                    <table className="cart-table">
                     { cartList.cart?.map((item, index)=>{
                         return(
-                            <li key={index}>  
-                                <div className="div-li">
+                            <tr key={index} className="cart-table-tr">  
+                                <td>
+                                <img className="cart-img" src="https://www.ilovepets.com/wp-content/uploads/2019/11/corgi-6-1024x913.jpg" />
+                                </td>
+
+                                <td>
+                                    <div>
+                                        {item.productn.name}
+                                        <br/>
+                                        Số lượng: {item.quantity}
+                                    </div>
+                                </td>
+
+                                <td>
                                     <form onSubmit={()=>handleSubmit(item.productn.id)}>
                                         <input
                                             value={proId}
-                                            type="text" placeholder='Password' name="" id=""
+                                            type="text"
+                                            hidden={true}
                                             onChange={e => setProID(item.productn.id)}/>
-
-                                        <img className="cart-img" src="https://www.ilovepets.com/wp-content/uploads/2019/11/corgi-6-1024x913.jpg" />
-                                        <div className="info">
-                                            {item.productn.name}
-                                            <br/>
-                                            Số lượng: {item.quantity}
-                                        </div>
-                                        <button type="submit" className="btn-mua">MUA</button>
+                                        
+                                        <button type="submit" className="cart-btn">MUA</button>
                                     
                                     </form>
-                                </div>   
-                            </li>
+                                </td>   
+                            </tr>
                         )
                     })}  
-                    </ul>
+                    </table>
                 </div>
-                <button className="close-modal"
+                <button className="close-cart"
                 onClick={toggleModal}>Đóng
                 </button>
             </div>

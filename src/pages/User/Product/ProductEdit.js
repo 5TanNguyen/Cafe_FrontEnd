@@ -14,6 +14,9 @@ export default function ProductEdit({productId}){
     const [name, setName] = useState("");
     const [species, setSpecies] = useState("");
     const [description, setDescription] = useState();
+    const [stock, setStock] = useState();
+    const [state, setState] = useState();
+    const [categoryId, setCategoryId] = useState();
     const [productDetail, setProductDetail] = useState();
 
 
@@ -24,17 +27,21 @@ export default function ProductEdit({productId}){
     const handleSubmit = async(event)=>{
         event.preventDefault();
 
-        const productEdit = {
+        const model = {
+            id: productId,
+            code: name,
             name: name,
-            species: species,
             description: description,
-            updatedAt: new Date(Date.now())
+            stock: stock,
+            state: state,
         };
 
+        console.log(model);
+
         axios({
-            url: `http://localhost:5005/product-edit/${productId}`,
-            method: "POST",
-            data : productEdit,
+            url: `http://localhost:5555/api/Pets/Update/${productId}`,
+            method: "PUT",
+            data : model,
             headers: {token: `Bearer ${token}`} 
         }).then((res)=>{
             console.log(res.data)
@@ -54,13 +61,14 @@ export default function ProductEdit({productId}){
 
     const getProductEdit = (id) => {
         axios({
-          url: `http://localhost:5005/product-detail/${id}`,
+          url: `http://localhost:5555/api/Pets/GetById/${id}`,
           method: "GET",
         }).then((res)=>{
             setProductDetail(res.data.product)
             
             setName(res.data.product.name);
-            setSpecies(res.data.product.species);
+            setStock(res.data.product.stock);
+            setState(res.data.product.state);
             setDescription(res.data.product.description);
         }).catch(function(err)
         {
@@ -81,7 +89,7 @@ export default function ProductEdit({productId}){
                     <h2>Chỉnh Sửa Thông Tin</h2>
                 </div>
                 <form className="containerr" onSubmit={handleSubmit}>
-                    <div className="inputs">
+                    <div className="inputEditForm">
                         <h2>Tên Cún</h2>
                         <div className="input">
                             <input 
@@ -91,13 +99,22 @@ export default function ProductEdit({productId}){
                                     e => setName(e.target.value)}
                                 />
                         </div>  
-                        <h2>Giống</h2>
+                        <h2>Còn</h2>
                         <div className="input">
                             <input 
-                                value={species}
+                                value={stock}
                                 type="text"
                                 onChange={
-                                    e => setSpecies(e.target.value)}/>
+                                    e => setStock(e.target.value)}/>
+                        </div>  
+
+                        <h2>Trạng thái</h2>
+                        <div className="input">
+                            <input 
+                                value={state}
+                                type="text"
+                                onChange={
+                                    e => setState(e.target.value)}/>
                         </div>  
 
                         <h2>Mô tả</h2>
@@ -108,7 +125,7 @@ export default function ProductEdit({productId}){
                             onChange={e => setDescription(e.target.value)}/>
                         </div>  
                     </div>
-                    <button className='btn-submit' type="submit">SỬA</button>
+                    <button className='btn-submit-EditForm' type="submit">SỬA</button>
                 </form>
                 <button className="close-modal"
                 onClick={toggleModal}>Đóng

@@ -69,8 +69,9 @@ export default function Products() {
   }, [])
   const getProducts = () => {
     axios({
-      url: "http://localhost:5555/productn-list",
+      url: "http://localhost:5555/api/Pets/list",
       method: "GET",
+      headers: {token: `Bearer ${cToken}`} 
     }).then((res)=>{
         // console.log("getProduts " + token);
         setProduct(res.data.products)
