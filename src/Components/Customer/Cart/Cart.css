@@ -8,6 +8,20 @@ body.active-cart {
     /* margin: 100px auto 0; */
     margin-left: 0px;
     font-size: 18px;
+    width: 150px;
+}
+
+.cart-count{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    top: 3px;
+    right: 190px;
+    background-color: rgb(255, 38, 0);
+    color: rgb(255, 255, 255);
+    border-radius: 100%;
+    padding: 2px; 
+    width: 20px;
 }
 
 .cart, .overlay {
@@ -27,7 +41,7 @@ body.active-cart {
 .cart-content {
     position: absolute;
     top: 40%;
-    left: 80%;
+    right: 0;
     transform: translate(-50%, -50%);
     line-height: 1.4;
     background: #f1f1f1;
@@ -35,8 +49,6 @@ body.active-cart {
     border-radius: 3px;
     max-width: 750px;
     min-width: 400px;
-
-    
 }
 
 .cart-div-scroll{
@@ -50,6 +62,8 @@ body.active-cart {
     top: 10px;
     right: 10px;
     padding: 5px 7px;
+    border-radius: 10px;
+    background-color: rgb(230, 81, 12);
 }
 
 .cart-img{
@@ -82,4 +96,8 @@ body.active-cart {
 
 .cart-table-tr {
     background-color: rgb(208, 140, 53);
+.cart-address{
+    background-color: gainsboro;
+    width: 90%;
+    color: black;
 }

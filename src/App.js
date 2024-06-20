@@ -9,14 +9,14 @@ import Footer from './Components/Public/Footer/Footer';
 import LoginSignup from './Components/Customer/Login/LoginSignup';
 import Products from './pages/Customer/Product/Products';
 import OrderPage from './pages/User/OrderPage/ConnectRoom';
+import ProductDetails from './pages/Customer/ProductDetail/ProductDetails';
 import UserProduct from './pages/User/Product/Products';
 
 import {About, Contact, Home, Services } from "./pages";
-import ProductDetails from './pages/Customer/ProductDetail/ProductDetails';
 
 function App() {
   return (
-    <div className='container'>
+    <div className='AppContainer'>
       <BrowserRouter>
         <Nav />
         {/* <NavBar /> */}
@@ -24,11 +24,12 @@ function App() {
           <Route path="/login" element={<LoginSignup />} />
           <Route path="/products" element={<Products />} />
           <Route path="/order" element={<OrderPage/>} />
+          <Route path="/product-detail/:id" element={<ProductDetails/>} />
           <Route path="/user-product" element={<UserProduct/>}/>
           <Route path="product/:id" element={<ProductDetails/>} />
         </Routes>
       </BrowserRouter>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }

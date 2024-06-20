@@ -19,14 +19,14 @@ function ConnectRoom() {
     }
   };  
 
-  // useEffect(()=>{
-  //   setUsername(localStorage.getItem('userName'));
-  //   setRoom(localStorage.getItem('role'));
+  useEffect(()=>{
+    // setUsername(localStorage.getItem('userName'));
+    setRoom(5);
 
-  //   if(!localStorage.getItem('userToken')){
-  //     navigate('/');
-  //   }
-  // }, []);
+    // if(!localStorage.getItem('userToken')){
+    //   navigate('/');
+    // }
+  }, []);
 
   return (
     <div className="App">

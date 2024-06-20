@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import ScrollToBottom from "react-scroll-to-bottom";
 import axios from "axios";
-import './ConnectRoom.css';
+// import './ConnectRoom.css';
 
-function Order({ socket, username, room }) {
+function OrderTest({ socket, username, room}) {
   const [product, setProduct] = useState();
 
   const [currentCustomerId, setCurrentCustomerId] = useState("");
@@ -211,4 +211,4 @@ function Order({ socket, username, room }) {
   );
 }
 
-export default Order;
+export default OrderTest;

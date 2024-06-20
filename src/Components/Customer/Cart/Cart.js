@@ -2,7 +2,6 @@ import React, {useState, useEffect} from "react";
 import "./Cart.css";
 import axios from "axios";
 import { useNavigate} from 'react-router-dom';
-import Order from './Order';
 
 // export default function Modal({product, socket, username, room}){
 export default function Cart({socket, customername, room}){
@@ -21,14 +20,16 @@ export default function Cart({socket, customername, room}){
     const [username, setUsername] = useState("");
     const [showChat, setShowChat] = useState(false);
     const [proId, setProID] = useState("");
+    const [count, setCount] = useState("");
 
     const toggleModal = () =>{
         setModal(!modal);
     }
 
-    const handleSubmit = async (productn_id) => {
+    const handleSubmit = async (productn_id, cartId) => {
         if (cName !== "") {
           const order = {
+            cart_id: cartId,
             user_id: null,
             customer_id : cId,
             customer: {
@@ -36,12 +37,12 @@ export default function Cart({socket, customername, room}){
             },
             quantity: 1,
             price: 22,
+            totalPrice: 22,
             productn_id : productn_id,
             address: 'Cần Thơ',
             state: false,
             author: customername,
             room: room,
-            totalPrice: 22,
             createdAt: new Date(Date.now())
             // time:
             //   new Date(Date.now()).getDate() +
@@ -101,8 +102,9 @@ export default function Cart({socket, customername, room}){
             method: "GET",
             headers: {token: `Bearer ${cToken}`} 
         }).then((res)=>{
-            // console.log(res.data)
+            // console.log(res.data) 
             setCartList(res.data);
+            setCount(res.data.count);
         }).catch(err => console.log(err));
     }
 
@@ -138,8 +140,7 @@ export default function Cart({socket, customername, room}){
                                             hidden={true}
                                             onChange={e => setProID(item.productn.id)}/>
                                         
-                                        <button type="submit" className="cart-btn">MUA</button>
-                                    
+                                        <button type="submit" className="cart-btn">MUA</button>                               
                                     </form>
                                 </td>   
                             </tr>
