@@ -133,7 +133,18 @@ body.active-modal {
 .deleteForm, .overplay-delete {
     width: 100vw;
     height: 100vh;
-    top: 50px;
+    top: -100px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: fixed;
+    z-index: 1;
+}
+
+.logoutForm .overplay-delete{
+    width: 100vw;
+    height: 100vh;
+    top: 0;
     left: 0;
     right: 0;
     bottom: 0;
@@ -155,7 +166,7 @@ body.active-modal {
     overflow-x:hidden;
 }
 
-.overplayEdit {
+.overplayEditt {
     background: rgba(14, 117, 145, 0.8);
     display: flex;
     justify-content: center;
@@ -166,15 +177,7 @@ body.active-modal {
     top: 50px;
 }
 
-.overplay-delete {
-    background: rgba(208, 29, 29, 0.8);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 20px;
-    height: 60px;
-    width: 100%;
-}
+
 
 .overplay-user-delete{
     margin-top: 20px;
@@ -223,6 +226,24 @@ body.active-modal {
     align-items: center;
 }
 
+.modal-user-logout {
+    position: absolute;
+    top: 300px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #c4e1f1;
+    border-radius: 3px;
+    width: 300px;
+    height: 180px;
+    min-width: 300px;
+    border-radius: 20px;
+    border-color: blue;
+    border-style: solid;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+
 .modal-user-create-content {
     position: absolute;
     top: 40%;
@@ -245,6 +266,7 @@ body.active-modal {
     top: 10px;
     right: 10px;
     padding: 5px 7px;
+    z-index: 999;
 }
 
 .close-modal-delete{

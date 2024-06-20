@@ -21,15 +21,15 @@ export default function ProductDelete({productId}){
     const handleSubmit = async(event)=>{
         event.preventDefault();
 
-        const productEdit = {
+        const productDelete = {
             state: false,
             updatedAt: new Date(Date.now())
         };
 
         axios({
-            url: `http://localhost:5005/product-edit/${productId}`,
-            method: "POST",
-            data : productEdit,
+            url: `http://localhost:5555/api/Pets/Delete/${productId}`,
+            method: "PUT",
+            data : productDelete,
             headers: {token: `Bearer ${token}`} 
         }).then((res)=>{
             console.log(res.data)
@@ -49,7 +49,7 @@ export default function ProductDelete({productId}){
 
     const getProductEdit = (id) => {
         axios({
-          url: `http://localhost:5005/product-detail/${id}`,
+          url: `http://localhost:5555/api/Pets/GetById/${id}`,
           method: "GET",
         }).then((res)=>{
             setProductDetail(res.data.product)            
@@ -72,7 +72,7 @@ export default function ProductDelete({productId}){
                     <h2>Xác Nhận Xóa</h2>
                 </div>
                 <form className="containerDelete" onSubmit={handleSubmit}>
-                    <div className="inputs">
+                    <div className="inputEditForm">
                         <h2>Tên Cún</h2>
                         <div className="input">
                             <input 
@@ -82,7 +82,7 @@ export default function ProductDelete({productId}){
                             />
                         </div> 
                     </div>
-                    <button className='btn-submit' type="submit">XÓA</button>
+                    <button className='btn-submit-DeleteForm' type="submit">XÓA</button>
                 </form>
                 <button className="close-modal"
                 onClick={toggleModal}>Đóng

@@ -12,6 +12,7 @@ export default function ProductCreate({productId}){
     const [modal, setModal] = useState(false);
     const [token, setToken] = useState();
     const [name, setName] = useState("");
+    const [code, setCode] = useState("");
     const [species, setSpecies] = useState("");
     const [description, setDescription] = useState();
     const [weight, setWeight] = useState();
@@ -22,6 +23,7 @@ export default function ProductCreate({productId}){
     const [price, setPrice] = useState("");
     const [beginDate, setBeginDate] = useState();
     const [endDate, setEndDate] = useState();
+    const [category_id, setCategory_id] = useState();
     const [startDate, setStartDate] = useState(new Date());
     const [birthDate, setBirthtDate] = useState(new Date());
 
@@ -33,24 +35,19 @@ export default function ProductCreate({productId}){
     const handleSubmit = async(event)=>{
         event.preventDefault();
 
-        const productCreate = {
-            name: name,
-            species: species,
+        const model = {
+            code: code,
+            name: code,
             description: description,
-            weight: weight,
-            birthDate: new Date(Date.now()),
             stock: stock,
-            imgUrl: imgUrl,
-            importPrice: importPrice,
-            price: price,
-            beginDate: beginDate,
-            endDate: endDate,
+            category_id: category_id,
+            PetTypeId: category_id
         };
 
         axios({
-            url: `http://localhost:5005/product-create`,
+            url: `http://localhost:5555/api/Pets/Add`,
             method: "POST",
-            data : productCreate,
+            data : model,
             headers: {token: `Bearer ${token}`} 
         }).then((res)=>{
             console.log(res.data)
@@ -84,24 +81,14 @@ export default function ProductCreate({productId}){
                         </tr>
                         <tr>
                             <td>
-                                <h5>Tên Cún</h5>
+                                <h5>Mã Cún</h5>
                                 <div className="">
                                     <input 
-                                        value={name}
+                                        value={code}
                                         type="text"
                                         onChange={
-                                            e => setName(e.target.value)}
+                                            e => setCode(e.target.value)}
                                         />
-                                </div>  
-                            </td>
-                            <td>
-                                <h5>Giống</h5>
-                                <div className="">
-                                    <input 
-                                        value={species}
-                                        type="text"
-                                        onChange={
-                                            e => setSpecies(e.target.value)}/>
                                 </div>  
                             </td>
                             <td>
@@ -111,16 +98,6 @@ export default function ProductCreate({productId}){
                                         value={description}
                                         type="text"
                                     onChange={e => setDescription(e.target.value)}/>
-                                </div>  
-                            </td>
-
-                            <td>
-                                <h5>Cân nặng</h5>
-                                <div className="">
-                                    <input 
-                                        value={weight}
-                                        type="text"
-                                    onChange={e => setWeight(e.target.value)}/>
                                 </div>  
                             </td>
                         </tr>
@@ -135,53 +112,13 @@ export default function ProductCreate({productId}){
                                 </div>  
                             </td>
                             <td>
-                                <h5>Giá Nhập</h5>
+                                <h5>Loại</h5>
                                 <div className="">
                                     <input 
-                                        value={importPrice}
+                                        value={category_id}
                                         type="text"
-                                    onChange={e => setImportPrice(e.target.value)}/>
-                                </div> 
-                            </td>
-                            <td>
-                                <h5>Ảnh</h5>
-                                <div className="">
-                                    <input 
-                                        value={imgUrl}
-                                        type="text"
-                                    onChange={e => setImgUrl(e.target.value)}/>
-                                </div>  
-                            </td>
-                        </tr>
-                        <tr>
-                            
-                        </tr>
-                        <tr>
-                            <td>
-                                <h5>Ngày Sinh</h5>
-                                <div className="">
-                                    <DateTimePicker onChange={setBirthtDate} value={birthDate} />
-                                </div>  
-                            </td>
-                            <td>
-                                <h5>Giá Bán</h5>
-                                <div className="">
-                                    <input 
-                                        value={price}
-                                        type="text"
-                                    onChange={e => setPrice(e.target.value)}/>
-                                </div> 
-                            </td>
-                            <td>
-                                <h5>Từ Ngày</h5>
-                                <div className="">
-                                    <DateTimePicker onChange={setBeginDate} value={beginDate} />
-                                </div>  
-                            </td>
-                            <td>
-                                <h5>Đến Ngày</h5>
-                                <div className="">
-                                    <DateTimePicker onChange={setEndDate} value={endDate} />
+                                        onChange={
+                                            e => setCategory_id(e.target.value)}/>
                                 </div>  
                             </td>
                         </tr>
@@ -189,7 +126,7 @@ export default function ProductCreate({productId}){
 
                     <div className="inputs">
                     </div>
-                    <button className='btn-submit' type="submit">THÊM</button>
+                    <button className='btn-submit-CreateForm' type="submit">THÊM</button>
                 </form>
                 <button className="close-modal-delete"
                 onClick={toggleModal}>Đóng

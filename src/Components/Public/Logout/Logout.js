@@ -38,13 +38,10 @@ export default function Logout(){
 
     return(
         <>
-        <button
-            onClick={toggleModal}
-            className="btn-logout"
-        >Đăng Xuất</button>
+        <a onClick={toggleModal}>Đăng Xuất</a>
         
-        {modal && (<div className="deleteForm">
-            <div className="modal-user-content">
+        {modal && (<div className="logoutForm">
+            <div className="modal-user-logout">
                 <div className="overplay-user-delete">
                     <h2>Xác Nhận Đăng Xuất</h2>
                 </div>

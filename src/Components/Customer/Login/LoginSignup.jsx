@@ -6,6 +6,7 @@ import { useNavigate} from 'react-router-dom';
 import user_icon from '../../Assets/person.png'
 import email_icon from '../../Assets/email.png'
 import password_icon from '../../Assets/password.png'
+import Validation from './Validation';
 
 const LoginSignup = () =>{
     const navigate = useNavigate();
@@ -17,47 +18,58 @@ const LoginSignup = () =>{
     const [phone, setPhone] = useState();
     const [token, setToken] = useState();
     const [address, setAddress] = useState();
+    const [errors, setErrors] = useState({});
 
     useEffect(()=>{
         setToken(localStorage.getItem('token'));
     })
 
     function handleSubmit(event){
-        console.log(action);
+        // console.log(action);
         event.preventDefault();
 
-        if(action === "Login"){
-            axios.post('http://localhost:5555/login', {phone, password})
+        let model = {
+            phone: phone,
+            password: password
+        };
+
+        setErrors(Validation.Login(model));
+
+        if(phone && password){
+            if(action === "Login"){
+
+                console.log(errors);
+
+                axios.post('http://localhost:5555/login', {phone, password})
+                    .then((res)=>{
+                        console.log(res.data)
+                        // localStorage
+                        localStorage.setItem('customerToken', res.data.token);
+                        localStorage.setItem('customerId', res.data.customer.id);
+                        localStorage.setItem('customerName', res.data.customer.firstName);
+
+                        navigate('/')
+                    })
+                    .catch(err => console.log(err));
+            }
+
+            if(action === "Sign Up"){
+                axios.post('http://localhost:5555/register', 
+                {
+                    firstName,
+                    lastName,
+                    email, 
+                    password,
+                    phone
+                })
                 .then((res)=>{
                     console.log(res.data)
-                    // localStorage
-                    localStorage.setItem('customerToken', res.data.token);
-                    localStorage.setItem('customerId', res.data.customer.id);
-                    localStorage.setItem('customerName', res.data.customer.firstName);
-
+                    console.log("Đăng ký thành công!");
                     navigate('/')
                 })
-                .catch(err => console.log(err));
+                .catch(err => console.log(err + "Há há"));
+            }
         }
-
-        if(action === "Sign Up"){
-            axios.post('http://localhost:5555/register', 
-            {
-                firstName,
-                lastName,
-                address,
-                email, 
-                password,
-                phone
-            })
-            .then((res)=>{
-                console.log(res.data)
-                console.log("Đăng ký thành công!");
-                navigate('/')
-            })
-            .catch(err => console.log(err + "Há há"));
-        }
-
     }
 
     return (
@@ -73,6 +85,23 @@ const LoginSignup = () =>{
                         <div className={action === "Sign Up"?"submit gray":"submit"} onClick={()=>{setAction("Login")}}>Login</div>
                     </div>
                     <div className="inputs"> 
+                        <div className="input">
+                            <input type="text" placeholder='               Phone' name="" id=""
+                            onChange={e => setPhone(e.target.value)}/>
+                            {errors.phone && <p style={{color: 'red'}}>{errors.phone}</p>}
+                        </div>
+
+                        <div className="input">
+                            <img src={password_icon} alt="" />
+                            <input type="password" placeholder='Password' name="" id=""
+                            onChange={e => setPassword(e.target.value)}/>
+                            {errors.password && <p style={{color: 'red'}}>{errors.password}</p>}
+                        </div>  
+                        
+                        {action==="Login"?
+                            <div></div>
+                            :
+                            <div>
                         {action==="Login"?<div></div>:
                             <div className=''>
                                 <div className="input">
@@ -88,16 +117,6 @@ const LoginSignup = () =>{
                                 </div>
                             </div>
                         }
-                        <div className="input">
-                            <input type="text" placeholder='               Phone' name="" id=""
-                            onChange={e => setPhone(e.target.value)}/>
-                        </div>
-
-                        <div className="input">
-                            <img src={password_icon} alt="" />
-                            <input type="password" placeholder='Password' name="" id=""
-                            onChange={e => setPassword(e.target.value)}/>
-                        </div>  
 
                         {action==="Sign Up"? 
                             <div>
@@ -118,7 +137,9 @@ const LoginSignup = () =>{
                                 </div>  
                             </div>
                             :
+                            <div className='forgot-password-div'>
                             <div className="forgot-password">Lost Password? <span>Click Here!</span></div>
+                            </div>
                         }
                     </div>
 

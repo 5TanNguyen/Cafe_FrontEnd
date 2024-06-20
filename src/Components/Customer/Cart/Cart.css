@@ -1,9 +1,9 @@
-body.active-modal {
+body.active-cart {
     overflow-y: hidden;
 }
 
 .btn-cart {
-    padding: 5px 15px;
+    padding: 10px 20px;
     display: block;
     /* margin: 100px auto 0; */
     margin-left: 0px;
@@ -24,7 +24,7 @@ body.active-modal {
     width: 20px;
 }
 
-.modal, .overlay {
+.cart, .overlay {
     width: 100vw;
     height: 100vh;
     top: 0;
@@ -38,7 +38,7 @@ body.active-modal {
 .overlay {
     background: rgba(49,49,49,0.8);
 }
-.card-content {
+.cart-content {
     position: absolute;
     top: 40%;
     right: 0;
@@ -47,10 +47,11 @@ body.active-modal {
     background: #f1f1f1;
     padding: 14px 28px;
     border-radius: 3px;
-    width: 370px;
+    max-width: 750px;
+    min-width: 400px;
 }
 
-.div-scroll{
+.cart-div-scroll{
     position: relative;
     overflow: auto;
     height: 400px;
@@ -65,21 +66,6 @@ body.active-modal {
     background-color: rgb(230, 81, 12);
 }
 
-.cart-ul{
-    margin-top: 40px;
-    width: 300px;
-    list-style-type: none;
-}
-
-.cart-ul li{
-    height: 100px;
-}
-
-.div-li{
-    position: absolute;
-    height: 100px;
-}
-
 .cart-img{
     width: 70px;
     height: 70px;
@@ -92,10 +78,9 @@ body.active-modal {
     width: 200px;
 }
 
-.btn-mua{
-    position: absolute;
+.cart-btn{
+    position: relative;
     top: 0;
-    left: 200px;
     width: 80px;
     height: 30px;
     border-radius: 20px;
@@ -103,6 +88,14 @@ body.active-modal {
     color: darkred;
 }
 
+.cart-table {
+    position: absolute;
+    top: 50px;
+    background-color: rgb(228, 225, 221);
+}
+
+.cart-table-tr {
+    background-color: rgb(208, 140, 53);
 .cart-address{
     background-color: gainsboro;
     width: 90%;
