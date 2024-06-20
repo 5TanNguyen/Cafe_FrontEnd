@@ -6,6 +6,7 @@ import ProductEdit from "./ProductEdit";
 import ProductDelete from "./ProductDelete";
 import ProductCreate from "./ProductCreate";
 import ProdcutPrice from './ProductPrice';
+import ProductHide from "./ProductHide";
 // import io from 'socket.io-client';
 
 // const socket = io.connect("http://localhost:5005");
@@ -25,12 +26,12 @@ export default function Products() {
   }, [])
   const getProducts = () => {
     axios({
-      url: "http://localhost:5005/product-list",
+      url: "http://localhost:5555/api/Pets/list",
       method: "GET",
       headers: {token: `Bearer ${token}`} 
     }).then((res)=>{
-        // console.log("getProduts " + token);
-        setProduct(res.data)
+        console.log(res.data.products);
+        setProduct(res.data.products)
     }).catch(function(err)
     {
       console.log(err + ' Lỗi getProducts');
@@ -53,21 +54,21 @@ export default function Products() {
             <th>Ảnh</th>
             <th>Name</th>
             <th>Loài</th>
-            <th colSpan={2}>Thao Tác</th>
+            <th>Thao Tác</th>
           </tr>
           { product?.map((item, index)=>{
               return(
                 <tbody key={index}>
                   <td>{item.id}</td>
                   <td className="imgpet">
-                    <img className="img-Pet" src={item.imgUrl} alt=""></img>
+                    <img className="img-Pet" src={"https://www.ilovepets.com/wp-content/uploads/2019/11/corgi-6-1024x913.jpg"} alt=""></img>
                   </td>
                   <td>{item.name}</td>
-                  <td>{item.species}</td>
+                  <td>{item.description}</td>
                   <td className="">
-                    <ProdcutPrice productId={item.id} />
                     <ProductEdit productId={item.id} />
                     <ProductDelete productId={item.id} />
+                    <ProductHide productId={item.id} productState={item.state} />
                   </td>
                 </tbody>
               )

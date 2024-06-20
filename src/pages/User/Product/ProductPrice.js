@@ -33,7 +33,7 @@ export default function ProductPrice({productId}){
         };
 
         axios({
-            url: `http://localhost:5005/productPrice-create`,
+            url: `http://localhost:5555/productPrice-create`,
             method: "POST",
             data : productPrice,
             headers: {token: `Bearer ${token}`} 

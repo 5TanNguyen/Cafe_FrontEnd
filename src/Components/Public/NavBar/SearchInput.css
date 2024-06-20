@@ -1,0 +1,212 @@
+.searchInput{
+    display: block;
+    width: 100%;
+    height: 100%;
+    margin: 0 0.5rem;
+}
+
+@media (max-width: 480px) {
+    .searchInput {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        margin: 0 0;
+    }
+
+    .searchInput input{
+        width: 70%;
+    }
+
+    .searchInput button{
+        width: 30%;
+    }
+}
+
+.searchInput input {
+    padding: 0.5rem;
+    /* height: 25px; */
+    border-radius: 8px;
+}
+
+.searchInput button{
+    padding: 0.5rem;
+    /* height: 100%; */
+    border-radius: 8px;
+    width: 60px;
+}
+
+body.active-modal {
+    overflow-y: hidden;
+}
+
+.btn-modal {
+    padding: 10px 20px;
+    display: block;
+    /* margin: 100px auto 0; */
+    margin-left: 0px;
+    font-size: 18px;
+}
+
+.modal-search, .overlayl-search {
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: fixed;
+    z-index: 1;
+}
+
+.modal-search{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.overlay-search {
+    background: rgba(49,49,49,0.8);
+}
+.modal-content-search {
+    position: absolute;
+    line-height: 1.4;
+    background: #f1f1f1;
+    padding: 14px 28px;
+    border-radius: 3px;
+    max-width: 40%;
+    min-width: 80%;    
+}
+
+.div-scroll{
+    position: relative;
+    overflow: auto;
+    height: 400px;
+}
+
+.div-scroll{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    position: relative;
+    width: 80%;
+    height: 400px;
+    margin: 50px auto;
+    padding: 50px 0 0;
+    box-sizing: border-box;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.close-modal {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 5px 7px;
+}
+
+
+
+.info{
+    position: absolute;
+    top: 0;
+    left: 80px;
+    width: 200px;
+}
+
+.btn-mua{
+    position: absolute;
+    top: 0;
+    left: 200px;
+    width: 80px;
+    height: 30px;
+    border-radius: 20px;
+    background-color: rgb(11, 134, 211);
+    color: darkred;
+}
+
+.card{
+    /* @extend .dFlex */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 30%;
+    border-radius: 15px;
+    flex-direction: column;
+    transform: scale(.8);
+    transition: all .3s ease-in-out;
+    margin-bottom: 50px;
+}
+
+.card .card_img{
+    margin-top: -5vw;
+}
+
+.card .card_img img{
+    width: 200px;
+}
+
+.card .card_header{
+    /* @extend .dFlex */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    flex-direction: column;
+    color: blanchedalmond;
+    margin: 20px 0;
+}
+
+.card .card_header h2{
+    font-size: 18px;
+}
+
+.card .card_header p{
+    font-size: 14px;
+    text-align: center;
+    color: red;
+    margin: 8px 0;
+}
+
+.card .card_header .price{
+    font-size: 25px;
+    color: red;
+}
+
+.card .card_header span{
+    font-size: 15px;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.card:hover{
+    background-color: rgb(88, 95, 101);
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+.card:hover .btn{
+    background-color: tomato;
+    color: white;
+}
+
+.btn{
+    /* @extend .dFlex */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 130px;
+    height: 35px;
+    font-size: 14px;
+    border-radius: 35px;
+    background-color: rgb(69, 71, 64);
+    color: yellow;
+    cursor: pointer;
+    position: relative;
+    transition: rgb(69, 71, 64) .3s ease;
+    overflow: hidden;
+}
