@@ -21,7 +21,7 @@ function Chat({ socket, username, room }) {
       };
 
       axios({
-        url: "http://localhost:5005/send-message",
+        url: "http://localhost:5555/send-message",
         method: "POST",
         data: messageData
       }).then((res)=>{
@@ -37,7 +37,7 @@ function Chat({ socket, username, room }) {
       
       // setMessageList((list) => [...list, messageData]);
       axios({
-        url: "http://localhost:5005/message-list",
+        url: "http://localhost:5555/message-list",
         method: "GET",
       }).then((res)=>{
           console.log('Lấy thành công!');
@@ -66,7 +66,7 @@ function Chat({ socket, username, room }) {
 
   const getMessages = () => {
     axios({
-      url: "http://localhost:5005/message-list",
+      url: "http://localhost:5555/message-list",
       method: "GET",
     }).then((res)=>{
         console.log('Lấy thành công!');

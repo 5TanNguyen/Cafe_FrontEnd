@@ -62,15 +62,31 @@ function Order({ socket, username, room, product , currentprice}) {
         url: "http://localhost:5555/user/order-list",
         method: "GET",
       }).then((res)=>{
-          console.log('Lấy thành công sau khi send!');
           setOrderList(res.data);
       }).catch(function(err)
       {
         console.log(err + ' Lỗi lấy tin nhắn');
       })
 
-      // navigate(`/productDetail/${product.id}`);
-      window.location.reload(false);
+      // window.location.reload(false);
+
+      // ZALOPAY
+      let zalopay = {
+        price: currentprice
+      }
+
+      axios({
+        url: "http://localhost:5555/payment",
+        method: "POST",
+        data: zalopay,
+      }).then((res)=>{
+          console.log('Chuyển trang ZaloPay');
+
+          window.location.assign(res.data);
+      }).catch(function(err)
+      {
+        console.log(err + ' Lỗi thanh toán');
+      })
     }
   };
 

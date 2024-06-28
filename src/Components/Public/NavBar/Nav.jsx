@@ -21,12 +21,12 @@ const Nav = () => {
     setCName(localStorage.getItem('customerName'));
     setCId(localStorage.getItem('customerId'));
 
-    socket.emit("join_room", cId);
+    // socket.emit("join_room", cId);
   }, [])
 
   return (
     <nav className='navBar'>
-      <Link to="/" className='title'>HOME</Link>
+      <Link to="/Home" className='title'>HOME</Link>
       <div className="menuNavBar" 
            onClick={() =>{
             setMenuOpen(!menuOpen)
@@ -41,7 +41,7 @@ const Nav = () => {
           <li><SearchInput /></li>
           <li><NavLink to="/profile">Hi, {cName}</NavLink></li>
           <li><NavLink to="/products">Products</NavLink></li>
-          <li><Cart socket={socket} customername={cName} room={cId}/></li>
+          <li><Cart customername={cName} room={5}/></li>
           <li><Logout /></li>
         </>
         ) : (   

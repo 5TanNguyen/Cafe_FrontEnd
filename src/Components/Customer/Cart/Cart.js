@@ -3,8 +3,11 @@ import "./Cart.css";
 import axios from "axios";
 import { useNavigate} from 'react-router-dom';
 
+import io from "socket.io-client";
+const socket = io.connect("http://localhost:5555");
+
 // export default function Modal({product, socket, username, room}){
-export default function Cart({socket, customername, room}){
+export default function Cart({customername, room}){
     // const product = props.product;
 
     const [orderList, setOrderList] = useState();
@@ -21,6 +24,7 @@ export default function Cart({socket, customername, room}){
     const [showChat, setShowChat] = useState(false);
     const [proId, setProID] = useState("");
     const [count, setCount] = useState("");
+    const [zalopay, setZaloPay] = useState("");
 
     const toggleModal = () =>{
         setModal(!modal);
@@ -28,58 +32,75 @@ export default function Cart({socket, customername, room}){
 
     const handleSubmit = async (productn_id, cartId) => {
         if (cName !== "") {
-          const order = {
-            cart_id: cartId,
-            user_id: null,
-            customer_id : cId,
-            customer: {
-              firstName: cName
-            },
-            quantity: 1,
-            price: 22,
-            totalPrice: 22,
-            productn_id : productn_id,
-            address: 'Cần Thơ',
-            state: false,
-            author: customername,
-            room: room,
-            createdAt: new Date(Date.now())
-            // time:
-            //   new Date(Date.now()).getDate() +
-            //   " " +
-            //   new Date(Date.now()).getHours() +
-            //   ":" +
-            //   new Date(Date.now()).getMinutes(),
-          };
+            
+
+            const order = {
+                id: "null",
+                cart_id: cartId,
+                user_id: null,
+                customer_id : cId,
+                customer: {
+                firstName: cName
+                },
+                quantity: 1,
+                price: (await axios.get(`http://localhost:5555/api/Pets/GetPrice/${productn_id}`)).data.price,
+                totalPrice: 22,
+                productn_id : productn_id,
+                address: 'Cần Thơ',
+                state: false,
+                author: customername,
+                room: room,
+                createdAt: new Date(Date.now())
+            };
+
+            console.log(order)
     
-          axios({
-            url: "http://localhost:5555/order-add",
-            method: "POST",
-            data: order,
-            // headers: {token: `Bearer ${token}`} 
-          }).then((res)=>{
-            console.log('Thêm thành công')
-        }).catch(function(err)
-          {
-            console.log(err + ' Lỗi gửi đơn');
-          })
-    
-          await socket.emit("send_order", order);
-          axios({
-            url: "http://localhost:5555/order-list",
-            method: "GET",
-          }).then((res)=>{
-              console.log('Lấy thành công sau khi send!');
-              setOrderList(res.data);
-          }).catch(function(err)
-          {
-            console.log(err + ' Lỗi lấy tin nhắn');
-          })
-    
-          // navigate(`/productDetail/${product.id}`);
-          window.location.reload(false);
+            axios({
+                url: "http://localhost:5555/order-add",
+                method: "POST",
+                data: order,
+                // headers: {token: `Bearer ${token}`} 
+            }).then((res)=>{
+                console.log('Thêm thành công')
+            }).catch(function(err)
+            {
+                console.log(err + ' Lỗi gửi đơn');
+            })
+        
+            getCarts();
+            await socket.emit("send_order", order);
+
+            const orderr = {
+                author: '5Tan',
+                room: 5
+            };
+            await socket.emit("send_cart", orderr);
+
+            //////////////// ZALOPAY //////////////////
+           
+
+
+            let zalopayy = {
+                price: (await axios.get(`http://localhost:5555/api/Pets/GetPrice/${productn_id}`)).data.price
+            }
+
+            console.log('Giá sản phẩm')
+            console.log(zalopayy);
+
+            axios({
+                url: "http://localhost:5555/payment",
+                method: "POST",
+                data: zalopayy,
+            }).then((res)=>{
+                console.log('Chuyển trang ZaloPay');
+
+                window.location.assign(res.data);
+            }).catch(function(err)
+            {
+                console.log(err + ' Lỗi thanh toán');
+            })
         }
-      };
+    };
 
     useEffect(()=>{
         setCToken(localStorage.getItem('customerToken'));
@@ -90,10 +111,10 @@ export default function Cart({socket, customername, room}){
 
         getCarts();
 
-        socket.on("receive_order", (data) => {
-            setCartList((list) => [...list, data]);
-            console.log('receive_order')
-        });
+        socket.on("receive_cart", (data) => {
+            getCarts();
+            console.log('receive_cart')
+          });
         }, [socket]);
 
     const getCarts = () =>{
@@ -133,15 +154,15 @@ export default function Cart({socket, customername, room}){
                                 </td>
 
                                 <td>
-                                    <form onSubmit={()=>handleSubmit(item.productn.id)}>
+                                    {/* <form onSubmit={()=>handleSubmit(item.productn.id, item.id)}> */}
                                         <input
                                             value={proId}
                                             type="text"
                                             hidden={true}
                                             onChange={e => setProID(item.productn.id)}/>
                                         
-                                        <button type="submit" className="cart-btn">MUA</button>                               
-                                    </form>
+                                        <button onClick={()=>handleSubmit(item.productn.id, item.id)} className="cart-btn">MUA</button>                               
+                                    {/* </form> */}
                                 </td>   
                             </tr>
                         )
