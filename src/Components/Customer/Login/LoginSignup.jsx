@@ -98,10 +98,6 @@ const LoginSignup = () =>{
                             {errors.password && <p style={{color: 'red'}}>{errors.password}</p>}
                         </div>  
                         
-                        {action==="Login"?
-                            <div></div>
-                            :
-                            <div>
                         {action==="Login"?<div></div>:
                             <div className=''>
                                 <div className="input">

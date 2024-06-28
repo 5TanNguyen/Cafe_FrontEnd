@@ -25,7 +25,7 @@ export default function ProductDetails() {
 
   const getProductDetail = () => {
     axios({
-      url: `http://localhost:5555/product-detail/${id}`,
+      url: `http://localhost:5555/api/Pets/GetById/${id}`,
       method: "GET" 
     }).then((res)=>{
         console.log(res.data.product);
@@ -52,12 +52,12 @@ export default function ProductDetails() {
 
   useEffect(() => {
 
-    ///////////////////////// LỖI REAL TIME //////////////////////////////////
+    ///////////////////////// SET ROOM 5 //////////////////////////////////
     
     setRoom(5);
     setCustomerName(localStorage.getItem('customerName'));
 
-    ///////////////////////// LỖI REAL TIME //////////////////////////////////
+    ///////////////////////// SET ROOM 5 //////////////////////////////////
     
     setToken(localStorage.getItem('token'));
     setCustomerId(localStorage.getItem('customerId'));
@@ -76,7 +76,7 @@ export default function ProductDetails() {
           <p>Còn lại: {product.stock}</p>
           <p>Đánh giá: 4 sao</p>
           <span class="change_price">
-            7,000,000₫
+            {price} VND
           </span>
           {!showChat ? (
             <div className="joinChatContainer">
