@@ -94,7 +94,7 @@ export default function ProductHide({productId, productState}){
                     <button className='btn-submit-DeleteForm' type="submit">SUBMIT</button>
                 </form>
                 <button className="close-modal"
-                onClick={toggleModal}>Đóng
+                onClick={toggleModal}>Đóng !
                 </button>
             </div>
         </div>
