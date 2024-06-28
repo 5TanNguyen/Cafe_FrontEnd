@@ -126,3 +126,36 @@
         margin: 0.2rem 0.5rem;
     }
 }
+
+@media (max-width: 750px){
+    .navBar .menuNavBar{
+        display: flex;
+    }
+
+    .navBar{
+        flex-direction: column;
+        align-items: start;
+        width: 100%;
+    }
+
+    .navBar ul{
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        margin-bottom: 0.25rem;
+        margin-left: -2.5rem;
+    }
+
+    .navBar ul.open{
+        display: flex;
+    }
+
+    .navBar ul li{
+        width: 100%;
+        text-align: center;
+    }
+
+    .navBar ul li a{
+        margin: 0.2rem 0.5rem;
+    }
+}

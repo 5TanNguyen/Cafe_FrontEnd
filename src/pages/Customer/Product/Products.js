@@ -3,9 +3,9 @@ import React, { useState, useEffect } from 'react';
 import axios from "axios";
 import './Product.css';
 import swal from 'sweetalert';
-// import io from 'socket.io-client';
+import io from 'socket.io-client';
 
-// const socket = io.connect("http://localhost:5005");
+const socket = io.connect("http://localhost:5555");
 
 export default function Products() {
 
@@ -16,6 +16,7 @@ export default function Products() {
   const [cToken, setCToken] = useState();
   const [cName, setCName] = useState();
   const [cId, setCId] = useState();
+  const [cartList, setCartList] = useState([]);
 
   const createCart = async (id) =>{
     if (!cId) {
@@ -51,11 +52,17 @@ export default function Products() {
         data: cart,
         headers: {token: `Bearer ${cToken}`} 
       }).then((res)=>{
-          navigate('/');
       }).catch(function(err)
       {
         console.log(err + ' Lỗi gửi đơn');
       })
+
+      const cartt = {
+        author: '5Tan',
+        room: 5
+      };
+
+      await socket.emit("send_cart", cartt);
   }
 
 
@@ -65,8 +72,13 @@ export default function Products() {
     setCId(localStorage.getItem('customerId'));
     getProducts();
 
+    socket.on("receive_cart", (data) => {
+      setCartList((list) => [...list, data]);
+      console.log('receive_cart')
+    });
+
     console.log( new Date(Date.now()).getHours())
-  }, [])
+  }, [socket])
   const getProducts = () => {
     axios({
       url: "http://localhost:5555/api/Pets/list",
